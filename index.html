@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>체크메이트 | 아스텔 제국 1453</title>
+<meta name="description" content="와인 사건 다음 날 아침, 당신은 소설 속 공작 부인의 몸으로 눈을 떴다. 체크메이트의 세계관과 등장인물을 소개합니다.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Hahmlet:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #241820;
+  --frame: #32222b;
+  --parchment: #efe5d3;
+  --rose: #9c7f89;
+  --gold: #d9b45c;
+  --gold-deep: #c9a043;
+  --wine: #7d1f33;
+  --wine-lit: #c2384f;
+  --ink: #2b1d25;
+  --ink-soft: #5b4535;
+  --head: "Hahmlet", "Noto Serif KR", "Noto Serif CJK KR", "Nanum Myeongjo", serif;
+  --body: "Gowun Batang", "Noto Serif KR", "Noto Serif CJK KR", "Nanum Myeongjo", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 64px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--night); color: var(--parchment);
+  font-family: var(--body); font-size: 17px; line-height: 1.85;
+  -webkit-text-size-adjust: 100%; overflow-x: hidden;
+  word-break: keep-all; overflow-wrap: break-word;
+}
+h1, h2, h3, h4 { font-family: var(--head); font-weight: 700; margin: 0; line-height: 1.3; }
+p { margin: 0 0 1em; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* 상단 바 */
+.bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 20px 10px;
+  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+  background: rgba(36, 24, 32, .94); border-bottom: 1px solid rgba(217, 180, 92, .35);
+}
+.bar b { font-family: var(--head); font-size: 17px; color: var(--gold); letter-spacing: .02em; }
+.bar nav { display: flex; gap: 6px; }
+.bar nav a {
+  text-decoration: none; padding: 6px 14px; border-radius: 999px; font-size: 15px;
+  border: 1px solid transparent;
+}
+.bar nav a:hover { border-color: rgba(217, 180, 92, .55); }
+
+/* 표지 */
+.hero { padding: 72px 20px 56px; text-align: center; max-width: 880px; margin: 0 auto; }
+.hero .when { color: var(--gold); font-size: 16px; margin-bottom: 26px; }
+.hero h1 { font-size: clamp(52px, 15vw, 112px); letter-spacing: .04em; color: var(--parchment); }
+.hero .lede { font-size: clamp(18px, 4.4vw, 21px); max-width: 30em; margin: 28px auto 40px; }
+.hero .lede em { font-style: normal; color: var(--gold); }
+.rank { width: 100%; max-width: 640px; height: auto; display: block; margin: 0 auto; }
+.rank-cap { font-size: 14px; color: var(--rose); margin-top: 12px; }
+
+/* 구분 띠 (체스판 한 줄) */
+.strip {
+  height: 14px;
+  background: repeating-conic-gradient(var(--parchment) 0 25%, var(--rose) 0 50%) 0 0 / 28px 28px;
+  border-top: 2px solid var(--gold-deep); border-bottom: 2px solid var(--gold-deep);
+}
+
+/* 세계관 */
+.world { background: var(--parchment); color: var(--ink); padding: 72px 20px 80px; }
+.world .wrap, .cast .wrap { max-width: 760px; margin: 0 auto; }
+.world h2 { font-size: clamp(34px, 8vw, 48px); color: var(--wine); margin-bottom: 20px; }
+.world .intro { font-size: 18px; margin-bottom: 56px; }
+.world section { margin-top: 56px; }
+.world h3 {
+  font-size: clamp(23px, 5.4vw, 28px); color: var(--wine);
+  padding-bottom: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--gold-deep);
+}
+.world h4 { font-size: 18px; margin: 28px 0 6px; color: var(--ink); }
+.world dl { margin: 0; }
+.world dt { font-family: var(--head); font-weight: 700; margin-top: 22px; color: var(--ink); }
+.world dd { margin: 4px 0 0; padding-bottom: 18px; border-bottom: 1px solid rgba(91, 69, 53, .28); }
+.world dl dd:last-child { border-bottom: 0; }
+.world .quote {
+  margin: 28px 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--wine); font-size: 18px;
+}
+.world table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.6; }
+.world caption { text-align: left; font-family: var(--head); font-weight: 700; padding-bottom: 10px; }
+.world th, .world td { text-align: left; padding: 11px 10px 11px 0; border-bottom: 1px solid rgba(91, 69, 53, .28); vertical-align: top; }
+.world th { font-family: var(--head); font-weight: 500; width: 34%; color: var(--ink-soft); }
+.scroll-x { overflow-x: auto; }
+
+/* 인물 */
+.cast { padding: 72px 20px 88px; }
+.cast h2 { font-size: clamp(34px, 8vw, 48px); color: var(--gold); margin-bottom: 18px; }
+.cast .intro { max-width: 34em; }
+.legend { display: flex; align-items: center; gap: 10px; color: var(--rose); font-size: 15px; margin: 0 0 8px; }
+.legend svg { width: 28px; height: 28px; flex: none; }
+.group { margin-top: 52px; }
+.group h3 { font-size: 22px; color: var(--parchment); margin-bottom: 4px; }
+.group .note { color: var(--rose); font-size: 15px; margin-bottom: 18px; }
+.board {
+  display: grid; gap: 0; grid-template-columns: repeat(2, 1fr);
+  border: 2px solid var(--gold-deep); background: var(--frame);
+}
+@media (min-width: 560px) { .board { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 760px) { .board { grid-template-columns: repeat(4, 1fr); } }
+.board.pair { grid-template-columns: repeat(2, 1fr); max-width: 520px; }
+.tile {
+  appearance: none; border: 0; padding: 0; margin: 0; cursor: pointer; text-align: left;
+  font: inherit; color: var(--parchment); background: var(--frame);
+  display: flex; flex-direction: column;
+}
+.tile .sq { aspect-ratio: 1 / 1; display: grid; place-items: center; background: var(--parchment); position: relative; overflow: hidden; }
+.tile:nth-child(even) .sq { background: var(--rose); }
+.tile .sq svg { width: 74%; height: 74%; transition: transform .2s ease; }
+.tile .sq img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.tile:hover .sq svg, .tile:focus-visible .sq svg { transform: translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .tile .sq svg { transition: none; } }
+.tile .lab { padding: 12px 14px 15px; border-top: 2px solid var(--gold-deep); flex: 1; }
+.tile .nm { font-family: var(--head); font-weight: 700; font-size: 18px; line-height: 1.3; display: block; }
+.tile .rl { font-size: 14px; color: var(--gold); line-height: 1.5; display: block; margin-top: 3px; }
+.tile.gone .sq svg { opacity: .45; }
+.pair .tile .nm { font-size: 21px; }
+
+/* 인물 상세 */
+dialog {
+  padding: 0; border: 0; background: var(--parchment); color: var(--ink);
+  width: min(100vw, 560px); max-width: 100vw; max-height: 100dvh; height: 100dvh;
+  margin: 0 0 0 auto; overflow: hidden;
+}
+@media (min-width: 700px) { dialog { height: min(92dvh, 860px); margin: auto; border: 2px solid var(--gold-deep); } }
+dialog::backdrop { background: rgba(20, 12, 17, .78); }
+dialog[open] { display: flex; flex-direction: column; animation: sheet .22s ease; }
+@keyframes sheet { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
+.d-top {
+  display: flex; justify-content: flex-end; padding: calc(env(safe-area-inset-top, 0px) + 8px) 10px 0; flex: none;
+}
+.x {
+  appearance: none; border: 1px solid var(--ink-soft); background: transparent; color: var(--ink);
+  font: 700 16px var(--head); border-radius: 999px; min-height: 44px; padding: 0 18px; cursor: pointer;
+}
+.x:hover { background: var(--ink); color: var(--parchment); }
+.d-scroll { overflow-y: auto; padding: 4px 24px 24px; flex: 1; overscroll-behavior: contain; }
+.d-head { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: end; margin-bottom: 22px; }
+.d-pic { aspect-ratio: 3 / 4; background: var(--rose); display: grid; place-items: center; border: 2px solid var(--gold-deep); overflow: hidden; }
+.d-pic svg { width: 78%; height: 78%; }
+.d-pic img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.d-head h2 { font-size: 26px; color: var(--wine); }
+.d-head .role { margin: 6px 0 0; color: var(--ink-soft); font-size: 16px; line-height: 1.55; }
+.facts { display: grid; grid-template-columns: repeat(3, auto); gap: 4px 20px; justify-content: start; margin: 0 0 8px; font-size: 15px; line-height: 1.5; }
+.facts div { padding: 8px 0; }
+.facts dt { font-family: var(--head); font-weight: 500; color: var(--ink-soft); font-size: 13px; }
+.facts dd { margin: 0; }
+.d-body h4 { font-size: 17px; color: var(--wine); margin: 22px 0 4px; }
+.d-body p { margin: 0; font-size: 16.5px; line-height: 1.8; }
+.d-body .heard { padding-left: 16px; border-left: 3px solid var(--wine); }
+.d-nav {
+  display: flex; justify-content: space-between; gap: 10px; flex: none;
+  padding: 10px 14px calc(env(safe-area-inset-bottom, 0px) + 12px); border-top: 1px solid rgba(91, 69, 53, .35);
+}
+.d-nav button {
+  appearance: none; min-height: 46px; padding: 0 16px; border-radius: 4px; cursor: pointer; font: 700 15px var(--head);
+  background: transparent; color: var(--ink); border: 1px solid var(--ink-soft); max-width: 48%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.d-nav button:hover { background: var(--ink); color: var(--parchment); }
+
+footer { padding: 36px 20px calc(env(safe-area-inset-bottom, 0px) + 44px); text-align: center; color: var(--rose); font-size: 15px; border-top: 1px solid rgba(217, 180, 92, .3); }
+footer p { max-width: 34em; margin: 0 auto; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="k-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 62 41 52H59C60 62 66 70 70 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="52" rx="15" ry="4.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M31 48L28 26C36 31 42 30 45 24H55C58 30 64 31 72 26L69 48Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="42" width="40" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M47 24V16H41V10H47V4H53V10H59V16H53V24Z" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="45.5" r="2.4" fill="#a3283c"/><circle cx="40" cy="45.5" r="1.8" fill="#a3283c"/><circle cx="60" cy="45.5" r="1.8" fill="#a3283c"/></symbol><symbol id="k-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 62 41 52H59C60 62 66 70 70 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="52" rx="15" ry="4.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M31 48L28 26C36 31 42 30 45 24H55C58 30 64 31 72 26L69 48Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="42" width="40" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M47 24V16H41V10H47V4H53V10H59V16H53V24Z" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="45.5" r="2.4" fill="#c2384f"/><circle cx="40" cy="45.5" r="1.8" fill="#c2384f"/><circle cx="60" cy="45.5" r="1.8" fill="#c2384f"/></symbol><symbol id="q-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 62 41 52H59C60 62 66 70 70 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="52" rx="15" ry="4.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M31 48L26 20L33 34L38 14L44 30L50 9L56 30L62 14L67 34L74 20L69 48Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="42" width="40" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="26" cy="20" r="3.2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="14" r="3.2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="9" r="3.2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="62" cy="14" r="3.2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="74" cy="20" r="3.2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="45.5" r="2.4" fill="#a3283c"/></symbol><symbol id="q-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 62 41 52H59C60 62 66 70 70 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="52" rx="15" ry="4.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M31 48L26 20L33 34L38 14L44 30L50 9L56 30L62 14L67 34L74 20L69 48Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="42" width="40" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="26" cy="20" r="3.2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="14" r="3.2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="9" r="3.2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="62" cy="14" r="3.2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="74" cy="20" r="3.2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="45.5" r="2.4" fill="#c2384f"/></symbol><symbol id="r-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M31 82L34 46H66L69 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M28 46V26H37V33H45V26H55V33H63V26H72V46Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="43" width="40" height="6" rx="1.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M45 74V64a5 5 0 0 1 10 0V74Z" fill="#5b4535"/></symbol><symbol id="r-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M31 82L34 46H66L69 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M28 46V26H37V33H45V26H55V33H63V26H72V46Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="43" width="40" height="6" rx="1.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M45 74V64a5 5 0 0 1 10 0V74Z" fill="#d4b06a"/></symbol><symbol id="b-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 70 41 60H59C60 70 66 70 70 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="60" rx="15" ry="4.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M50 18C65 30 67 45 58 55H42C33 45 35 30 50 18Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M55 31L46 43" stroke="#5b4535" stroke-width="3.5" stroke-linecap="round"/><circle cx="50" cy="14" r="4" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="b-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 70 41 60H59C60 70 66 70 70 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="60" rx="15" ry="4.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M50 18C65 30 67 45 58 55H42C33 45 35 30 50 18Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M55 31L46 43" stroke="#d4b06a" stroke-width="3.5" stroke-linecap="round"/><circle cx="50" cy="14" r="4" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="n-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M32 82C33 74 36 69 41 62C34 61 28 59 24 57C18 54 15 48 18 43C21 37 27 33 34 29C38 23 40 17 44 11L51 21C63 21 73 32 75 46C77 60 73 72 70 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M53 24C63 28 69 38 70 53" stroke="#c9a043" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="38" r="2.6" fill="#5b4535"/><circle cx="41" cy="62" r="3" fill="#a3283c" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="n-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M32 82C33 74 36 69 41 62C34 61 28 59 24 57C18 54 15 48 18 43C21 37 27 33 34 29C38 23 40 17 44 11L51 21C63 21 73 32 75 46C77 60 73 72 70 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M53 24C63 28 69 38 70 53" stroke="#d9b45c" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="38" r="2.6" fill="#d4b06a"/><circle cx="41" cy="62" r="3" fill="#c2384f" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="p-w" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 70 41 60H59C60 70 66 70 70 82Z" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="60" rx="15" ry="4.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="44" r="12" fill="#f8f2e4" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="29.5" r="3.5" fill="#c9a043" stroke="#5b4535" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="p-b" viewBox="0 0 100 100"><path d="M20 88h60a4 4 0 0 1 0 8H20a4 4 0 0 1 0-8z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><rect x="25" y="82" width="50" height="7" rx="2" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><path d="M30 82C34 70 40 70 41 60H59C60 70 66 70 70 82Z" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="60" rx="15" ry="4.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="44" r="12" fill="#3d2130" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="29.5" r="3.5" fill="#d9b45c" stroke="#d4b06a" stroke-width="3" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<header class="bar">
+  <b>체크메이트</b>
+  <nav aria-label="바로가기"><a href="#world">세계관</a><a href="#cast">인물</a></nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="top">
+  <p class="when">1453년 5월 29일 화요일 아침<br>아스텔 제국, 수도 세레나</p>
+  <h1 id="top">체크메이트</h1>
+  <p class="lede">와인 사건 다음 날 아침, 당신은 읽던 소설 속 공작 부인의 몸으로 눈을 떴다.<br><em>이 이야기에서 그녀는 죽는다.</em></p>
+  <svg class="rank" viewBox="-6 -6 812 148" role="img" aria-label="체스판의 한 줄. 와인색 킹과 상아색 퀸이 마주 서 있다.">
+    <rect x="-3" y="-3" width="806" height="106" fill="none" stroke="#c9a043" stroke-width="3"/>
+    <rect x="0" y="0" width="100" height="100" fill="#9c7f89"/><rect x="100" y="0" width="100" height="100" fill="#efe5d3"/><rect x="200" y="0" width="100" height="100" fill="#9c7f89"/><rect x="300" y="0" width="100" height="100" fill="#efe5d3"/><rect x="400" y="0" width="100" height="100" fill="#9c7f89"/><rect x="500" y="0" width="100" height="100" fill="#efe5d3"/><rect x="600" y="0" width="100" height="100" fill="#9c7f89"/><rect x="700" y="0" width="100" height="100" fill="#efe5d3"/><use href="#k-b" x="205" y="5" width="90" height="90"/><use href="#q-w" x="505" y="5" width="90" height="90"/>
+    <g font-family="Georgia, serif" font-style="italic" font-size="32" fill="#dcc59c" text-anchor="middle">
+      <text x="50" y="132">a</text><text x="150" y="132">b</text><text x="250" y="132">c</text><text x="350" y="132">d</text>
+      <text x="450" y="132">e</text><text x="550" y="132">f</text><text x="650" y="132">g</text><text x="750" y="132">h</text>
+    </g>
+  </svg>
+  <p class="rank-cap">두 사람의 대국은 이 한 줄에서 시작된다.</p>
+</section>
+
+<div class="strip" aria-hidden="true"></div>
+
+<article class="world" id="world">
+  <div class="wrap">
+    <h2>세계관</h2>
+    <p class="intro">이야기는 1453년 5월 29일 아침, 제국의 수도 세레나에서 시작됩니다. 봄 사교 시즌이 한창이고, 도시는 어젯밤 한 연회장에서 벌어진 일로 들끓고 있습니다. 이 페이지에는 당신이 눈을 뜨기 전부터 이 세계가 갖고 있던 것만 적었습니다.</p>
+
+    <section id="empire">
+      <h3>아스텔 제국</h3>
+      <p>아스텔 제국의 황실은 수도 세레나의 황궁에 있습니다. 황태자는 스물여섯 살의 아드리안 아스텔로, 궁정의 연회와 크고 작은 거래는 대부분 그의 손을 거칩니다. 제국의 귀족들은 저마다 먼 영지를 다스리지만, 한 해의 중심은 언제나 수도의 사교 시즌에 있습니다.</p>
+      <h4>사교 시즌</h4>
+      <p>시즌은 봄에 열려 가을에 막을 내립니다. 그동안 귀족 가문은 영지를 떠나 수도의 저택에 머물며 살롱과 연회, 무도회를 오갑니다. 혼담과 소문, 정보와 돈이 모두 이 자리에서 오가기 때문에 초대장 한 장이 가문의 평판을 가르기도 합니다. 시즌이 끝나면 귀족들은 각자의 영지로 돌아갑니다.</p>
+      <h4>별명의 사교계</h4>
+      <p>사교계는 한 사람의 최근 행동에 별명을 붙이는 데 능합니다. 별명은 말이 가장 빨리 퍼지는 곳에서 만들어지고, 한 번 붙으면 시즌이 바뀌어도 쉽게 떨어지지 않습니다. 지금 수도에서 가장 많이 불리는 별명은 ‘미친 공작 부인’입니다.</p>
+    </section>
+
+    <section id="valentis">
+      <h3>발렌티스 공작가</h3>
+      <p>제국의 북부 국경을 지키는 공작가입니다. 영지인 발렌티스령은 겨울이 길고 눈이 깊어서, 가문의 성은 한 해의 절반 가까이 흰 눈 속에 잠겨 있습니다. 시즌 동안 가문은 수도의 저택 노크턴 저택에 머뭅니다.</p>
+      <p>현재의 당주는 스물아홉 살의 루시엔 발렌티스 공작입니다. 선대 공작은 이미 세상을 떠났고, 선대가 남긴 서자 레녹스가 형 곁을 오갑니다. 공작은 1년 반 전 로첼 백작가의 딸 엘리아나를 두 번째 아내로 맞았습니다. 그에 앞서 첫 번째 아내 이사벨이 있었지만, 그녀는 3년 전에 세상을 떠났습니다.</p>
+      <p>저택은 집사장 그레고르가 오래도록 다스려 왔습니다. 하인들은 공작이 아니라 집사장의 눈을 먼저 살핍니다.</p>
+    </section>
+
+    <section id="rochel">
+      <h3>로첼 백작가</h3>
+      <p>오래된 가문이지만 엘리아나가 결혼하던 무렵에는 몰락 직전이었습니다. 공작가와의 혼사는 가문을 지탱해 줄 거의 유일한 길이었고, 결혼을 받아들인 사람은 현 로첼 백작이자 엘리아나의 오빠인 아르노였습니다. 지금 두 사람의 연락은 끊겨 있습니다.</p>
+    </section>
+
+    <section id="faith">
+      <h3>신앙과 법</h3>
+      <p>제국은 빛의 여신 솔레아를 섬깁니다. 신앙의 중심은 수도의 새벽종 대신전이고, 이단을 가려내는 이단심문소는 이 신전에 속해 있습니다. 심문관이 사람을 불러 묻는 법정은 건물의 색을 따 회색법정이라 불립니다.</p>
+      <h4>마법은 공인된 것만 허락된다</h4>
+      <p>평범한 사람은 마법을 쓸 수 없습니다. 제국이 인정하는 힘은 신관이 여신에게 받는 신성력뿐이며, 그 밖의 모든 마법은 금기입니다. 금기를 쓰거나 숨긴 사람은 이단으로 심문받습니다. 그래서 귀족들은 이 주제를 입에 올리는 것조차 조심합니다.</p>
+    </section>
+
+    <section id="manners">
+      <h3>돈과 예절</h3>
+      <p>제국의 화폐는 금화 크라운과 은화 실링입니다. 사교계에서는 돈의 액수보다 호칭이 사람의 자리를 먼저 말해 줍니다. 아래는 이 이야기 속에서 누가 누구를 어떻게 부르는지 정리한 것입니다.</p>
+      <div class="scroll-x">
+      <table>
+        <caption>호칭</caption>
+        <tbody>
+          <tr><th scope="row">루시엔이 엘리아나를</th><td>‘부인’. 감정이 실리면 이름으로 부른다.</td></tr>
+          <tr><th scope="row">그레고르가</th><td>공작은 ‘공작 각하’, 엘리아나는 ‘마님’.</td></tr>
+          <tr><th scope="row">니나가</th><td>엘리아나는 ‘아가씨’. 친정에서부터 불러 온 호칭이다.</td></tr>
+          <tr><th scope="row">아르노가</th><td>엘리아나는 ‘엘리’. 말은 편하게 놓는다.</td></tr>
+          <tr><th scope="row">레녹스가</th><td>엘리아나는 ‘형수님’, 루시엔은 ‘형님’.</td></tr>
+          <tr><th scope="row">비비안, 클라리스, 아드리안, 테오도르가</th><td>엘리아나는 ‘공작 부인’. 테오도르는 친해지면 ‘엘리아나 님’이라 부른다.</td></tr>
+          <tr><th scope="row">세라핀이</th><td>엘리아나는 ‘부인’, 루시엔은 ‘발렌티스 공’.</td></tr>
+          <tr><th scope="row">마델린이</th><td>엘리아나는 ‘마님’.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section id="places">
+      <h3>주요 장소</h3>
+      <dl>
+        <dt>노크턴 저택</dt>
+        <dd>수도에 있는 발렌티스 공작가의 저택입니다. 공작이 체스판을 놓고 앉는 서재, 궁정 화가 테오도르가 작업실로 쓰는 유리온실이 있습니다. 동관은 오래전부터 문이 잠겨 있습니다.</dd>
+        <dt>몽크레르 살롱</dt>
+        <dd>후작 부인 비비안이 여는 살롱으로, 사교계의 중심입니다. 이곳의 초대장을 받는지가 한 해의 형편을 말해 줍니다.</dd>
+        <dt>새벽종 대신전</dt>
+        <dd>수도 신앙의 중심입니다. 지하의 회색법정에서 이단심문관 세라핀이 사람들을 부릅니다.</dd>
+        <dt>황궁</dt>
+        <dd>황태자가 연회를 열고, 귀족들이 손을 맞잡거나 끊는 곳입니다.</dd>
+        <dt>발렌티스령의 성</dt>
+        <dd>북부 국경의 눈 속에 서 있는 가문의 본성입니다. 관리인 마델린이 이 성을 지킵니다. 그녀는 매달 수도의 공작 부인에게 편지와 북부의 선물을 보냅니다.</dd>
+      </dl>
+    </section>
+
+    <section id="novel">
+      <h3>원작 소설 「겨울에 지는 꽃」</h3>
+      <p>당신이 읽던 소설입니다. 공작 부인 엘리아나의 시점으로 쓰인 비극적인 로맨스 판타지로, 독자들은 그 끝을 ‘역대급 배드엔딩’이라 불렀습니다. 소설 속의 엘리아나는 남편에게 이용당한 끝에 죽습니다.</p>
+      <p class="quote">당신은 그 결말을 알고 있습니다. 소설이 아직 쓰지 않은 것은, 지금부터의 선택입니다.</p>
+    </section>
+  </div>
+</article>
+
+<div class="strip" aria-hidden="true"></div>
+
+<section class="cast" id="cast">
+  <div class="wrap">
+    <h2>인물</h2>
+    <p class="intro">기물을 누르면 그 사람의 겉모습과 말투, 사교계에서 도는 이야기를 볼 수 있습니다. 여기에는 누구나 볼 수 있는 모습만 적혀 있습니다.</p>
+    <p class="legend"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-b"/></svg>와인색 기물은 발렌티스의 피를 이은 사람입니다.</p>
+    <div id="groups"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>이 페이지는 세계관과 인물의 겉모습만 소개합니다. 이야기의 나머지는 직접 두어 보세요.</p>
+</footer>
+
+<dialog id="sheet" aria-labelledby="d-name">
+  <div class="d-top"><button class="x" type="button" id="d-close">닫기</button></div>
+  <div class="d-scroll" id="d-scroll">
+    <div class="d-head">
+      <div class="d-pic" id="d-pic"></div>
+      <div><h2 id="d-name"></h2><p class="role" id="d-role"></p></div>
+    </div>
+    <dl class="facts" id="d-facts"></dl>
+    <div class="d-body" id="d-body"></div>
+  </div>
+  <div class="d-nav"><button type="button" id="d-prev"></button><button type="button" id="d-next"></button></div>
+</dialog>
+
+<script>
+/* 초상화는 '이름_평온' 형식의 파일을 img 폴더(또는 index.html과 같은 폴더)에 넣으면 자동으로 뜹니다.
+   확장자(png, jpg, jpeg, webp)는 신경 쓰지 않아도 됩니다. 파일이 없는 인물은 체스 기물이 대신 보입니다. */
+const GROUPS = [
+  { title: "공작 부부", note: "대국의 두 사람입니다.", pair: true, ids: ["lucien", "elliana"] },
+  { title: "노크턴 저택", note: "수도 저택을 움직이는 사람들입니다.", ids: ["gregor", "nina"] },
+  { title: "발렌티스 가문", note: "공작가의 이름으로 묶인 사람들입니다.", ids: ["lenox", "madeline", "isabel"] },
+  { title: "사교계와 친정", note: "시즌의 소문이 오가는 곳입니다.", ids: ["arno", "vivian", "clarisse", "teodor"] },
+  { title: "제국과 신전", note: "황궁과 대신전의 사람들입니다.", ids: ["adrian", "seraphin"] }
+];
+
+const PEOPLE = {
+  lucien: {
+    name: "루시엔 발렌티스", role: "발렌티스 공작, 엘리아나의 남편", piece: "k", wine: true, img: "",
+    age: "29세", birth: "1423.11.29", body: "188cm, 78kg",
+    look: "흑발을 뒤로 넘겼고, 이마 위로 잔머리가 한두 가닥 흘러내립니다. 창백한 얼굴에 무거운 눈꺼풀과 긴 속눈썹, 그 아래로 회색 눈이 있고 눈 밑에 작은 점이 하나 있습니다. 어디서든 검은 장갑을 벗지 않으며, 검은 조끼와 흰 셔츠, 검은 크라바트에 은 타이핀을 꽂은 차림이 거의 변하지 않습니다.",
+    manner: "흠잡을 데 없이 예의 바르고 무심한 귀족입니다. 화내는 일도 기뻐하는 일도 드물고, 아내가 소동을 일으켜도 한 번 탓하는 법이 없습니다. 체스가 유일한 취미입니다.",
+    speech: "아내를 ‘부인’이라 부르는 낮고 느린 하오체입니다. 감정이 실릴수록 오히려 말이 짧아집니다.",
+    haunt: "노크턴 저택의 서재. 체스판이 놓여 있는 방입니다.",
+    tie: "결혼 1년 반 된 남편입니다.",
+    heard: "완벽한 신사이지만 속을 아는 사람이 없다고들 합니다."
+  },
+  elliana: {
+    name: "엘리아나 발렌티스", role: "발렌티스 공작 부인, 당신이 눈을 뜬 몸", piece: "q", img: "",
+    age: "23세", birth: "1430.02.14", body: "158cm, 58kg",
+    look: "옅은 금발에 청록색 눈, 가녀린 체구입니다. 눈매가 오빠 아르노와 많이 닮았습니다.",
+    manner: "로첼 백작가의 딸로, 몰락 직전의 친정을 살리려고 공작에게 시집왔습니다. 결혼 1년 반 동안 사교계의 멸시를 견뎌 왔고, 어젯밤에는 연회장에서 몽크레르 영애에게 와인을 끼얹었습니다.",
+    haunt: "노크턴 저택. 어제 일 때문에 수도 전체가 그녀의 이름을 말하고 있습니다.",
+    tie: "공작의 아내이자 로첼 백작의 동생입니다.",
+    heard: "‘공작가의 미친 부인’. 어제부터는 이 별명이 수도에서 가장 많이 불립니다."
+  },
+  gregor: {
+    name: "그레고르 하윈", role: "발렌티스 가문의 집사장", piece: "r", img: "",
+    age: "52세", birth: "1401.01.08", body: "178cm, 61kg",
+    look: "반백의 머리를 단정히 빗어 넘긴 마른 체구이고, 깊이 팬 주름과 검은 눈을 가졌습니다. 검은 연미복과 조끼에 회중시계 줄을 걸고 있으며, 왼손 약지가 없습니다.",
+    manner: "표정이 거의 없고 빈틈이 없습니다. 저택에서 일어나는 일은 모두 알고 있고, 한 번 한 말은 번복하지 않습니다. 선대 공작의 임종을 지켰고, 루시엔이 어릴 때부터 곁에 있었습니다.",
+    speech: "극존칭을 씁니다. 공작은 ‘공작 각하’, 엘리아나는 ‘마님’이라 부릅니다.",
+    haunt: "노크턴 저택 전체. 어느 방에서든 그의 발소리가 먼저 들립니다.",
+    tie: "저택의 모든 하인을 거느린 집사장입니다.",
+    heard: "하인들은 공작보다 집사장의 눈을 먼저 살핀다고 합니다."
+  },
+  nina: {
+    name: "니나 하스", role: "엘리아나의 시녀", piece: "p", img: "",
+    age: "22세", birth: "1431.04.07", body: "154cm, 47kg",
+    look: "갈색 머리를 한 가닥으로 땋아 어깨 앞으로 늘어뜨렸고, 주근깨가 있는 얼굴에 갈색 눈을 가졌습니다. 작은 체구에 일로 거칠어진 손이 눈에 띕니다. 진녹색 드레스에 흰 앞치마를 두르고 머리에 시녀 모자를 씁니다.",
+    manner: "사근사근하고 눈치가 빠릅니다. 놀라면 말을 더듬고, 마님 앞에서는 표정이 숨겨지지 않습니다.",
+    speech: "친근한 존댓말을 씁니다. 엘리아나는 ‘아가씨’, 공작은 ‘공작 각하’라 부릅니다.",
+    haunt: "엘리아나의 침실과 그 주변.",
+    tie: "로첼 백작가에서 함께 온 몸종으로, 가장 오래 곁을 지킨 사람입니다.",
+    heard: "친정에서 따라온 몸종이라 아가씨가 무슨 짓을 해도 곁을 떠나지 않는다고들 합니다."
+  },
+  lenox: {
+    name: "레녹스 발렌티스", role: "루시엔의 이복동생, 선대 공작의 서자", piece: "n", wine: true, img: "",
+    age: "25세", birth: "1427.12.05", body: "184cm, 71kg",
+    look: "은빛에 가까운 연한 머리가 부스스하게 내려오고, 회색 눈에 왼쪽 귀에는 귀걸이를 하고 있습니다. 어떤 자리에서든 웃는 얼굴입니다.",
+    manner: "붙임성이 좋고 농담을 잘 던집니다. 누구에게나 웃어 주지만 그 웃음 뒤의 속은 쉽게 읽히지 않습니다.",
+    speech: "가볍고 장난스러운 말투입니다. 엘리아나는 ‘형수님’, 루시엔은 ‘형님’이라 부릅니다.",
+    haunt: "수도와 영지 사이를 자유롭게 오갑니다.",
+    tie: "남편의 이복동생, 곧 시동생입니다.",
+    heard: "서자라는 꼬리표를 오히려 즐기는 사람이라는 평이 있습니다."
+  },
+  madeline: {
+    name: "마델린", role: "발렌티스령 성의 관리인", piece: "r", img: "",
+    age: "20대 후반", birth: "", body: "163cm, 50kg",
+    look: "새하얀 머리를 왕관처럼 땋아 올렸고 눈은 짙은 파란색입니다. 검은 상복 같은 드레스를 입고, 허리에는 성의 문마다 맞는 열쇠 꾸러미를 매달았습니다. 얼굴은 젊습니다.",
+    manner: "새벽마다 성을 돌고, 장부의 숫자 하나 틀리는 것을 용납하지 않습니다. 그러면서도 지친 사람에게는 꿀차를 내밉니다.",
+    speech: "부드러운 존댓말을 쓰지만 단호해지면 말이 짧아집니다. 엘리아나는 ‘마님’이라 부릅니다.",
+    haunt: "북부 발렌티스령의 성.",
+    tie: "매달 공작 부인에게 편지와 북부의 선물을 보냅니다.",
+    heard: "북부 성에는 대대로 같은 이름을 쓰는 관리인 가문이 있다고 합니다."
+  },
+  isabel: {
+    name: "이사벨 발렌티스", role: "루시엔의 첫 번째 아내", piece: "q", gone: true, img: "",
+    age: "향년 26세", birth: "1424.07.07", body: "167cm, 52kg",
+    look: "흑갈색 머리에 짙은 녹색 눈을 가졌습니다.",
+    manner: "3년 전에 세상을 떠난 첫 번째 공작 부인입니다. 그녀에 대해 알려진 것은 많지 않습니다.",
+    tie: "엘리아나의 전임 공작 부인입니다."
+  },
+  arno: {
+    name: "아르노 로첼", role: "로첼 백작, 엘리아나의 친정 오빠", piece: "r", img: "",
+    age: "27세", birth: "1426.03.11", body: "183cm, 72kg",
+    look: "옅은 금발이 짧고 헝클어져 있고, 동생과 같은 청록색 눈 아래에 짙은 그늘이 드리워져 있습니다. 낡았지만 단정한 갈색 코트에 흰 셔츠, 느슨하게 맨 크라바트 차림입니다.",
+    manner: "무뚝뚝하고 말이 거칩니다. 가문을 지키려 혼사를 받아들인 사람이기도 합니다.",
+    speech: "반말을 씁니다. 엘리아나는 ‘엘리’라 부릅니다.",
+    haunt: "수도의 로첼 백작가 별채.",
+    tie: "엘리아나의 친오빠입니다. 지금은 남매가 연락을 끊은 상태입니다.",
+    heard: "가문을 살린 대가로 동생과 사이가 틀어졌다는 말이 돕니다."
+  },
+  vivian: {
+    name: "비비안 몽크레르", role: "후작 부인, 사교계의 여왕", piece: "q", img: "",
+    age: "45세", birth: "1408.01.26", body: "166cm, 56kg",
+    look: "붉은 갈색 머리를 높이 올려 틀었고, 헤이즐색 눈과 붉은 입술을 가졌습니다. 목에는 진주 초커를 두르고 진녹색 오프숄더 이브닝 가운을 입습니다. 웃을 때도 눈은 웃지 않습니다.",
+    manner: "우아하고 날카롭습니다. 칭찬처럼 들리는 말로 사람을 베는 데 능합니다.",
+    speech: "비꼬는 우아한 존댓말을 씁니다. 엘리아나는 ‘공작 부인’이라 부릅니다.",
+    haunt: "몽크레르 살롱.",
+    tie: "어젯밤 와인을 맞은 클라리스의 어머니로, 지금은 엘리아나에게 적대적입니다.",
+    heard: "그녀의 초대장을 받지 못하면 시즌이 끝난 것이라고들 합니다."
+  },
+  clarisse: {
+    name: "클라리스 몽크레르", role: "비비안의 딸, 어젯밤 와인 사건의 피해자", piece: "b", img: "",
+    age: "20세", birth: "1432.10.18", body: "157cm, 48kg",
+    look: "갈색 웨이브 머리에 분홍 리본을 맸고, 호박색 눈을 가졌습니다. 복숭아빛 퍼프소매 드레스에 레이스를 달았습니다.",
+    manner: "자존심이 세고 날이 서 있습니다. 어젯밤의 일로 온 수도의 눈이 그녀에게 쏠려 있습니다.",
+    speech: "날 선 존댓말을 씁니다. 엘리아나는 ‘공작 부인’이라 부르다 가까워지면 투덜대며 이름을 부릅니다.",
+    haunt: "몽크레르 살롱과 시즌의 연회장.",
+    tie: "엘리아나가 어젯밤 와인을 끼얹은 상대입니다.",
+    heard: "하룻밤 사이에 시즌에서 가장 동정받는 영애가 되었습니다."
+  },
+  teodor: {
+    name: "테오도르 레인", role: "궁정 화가", piece: "n", img: "",
+    age: "28세", birth: "1424.09.22", body: "181cm, 70kg",
+    look: "밤색 머리를 대충 묶었고, 풀린 잔머리가 얼굴 옆으로 흩어집니다. 갈색 눈에 흰 셔츠 소매를 걷어 올렸고, 손끝에는 늘 물감이 묻어 있습니다.",
+    manner: "부드럽고 조용합니다. 붓을 들면 주변의 소란을 잊습니다.",
+    speech: "부드러운 존댓말을 씁니다. 엘리아나는 ‘공작 부인’이라 부르다 친해지면 ‘엘리아나 님’이라 부릅니다.",
+    haunt: "노크턴 저택의 유리온실. 이곳을 작업실로 씁니다.",
+    tie: "저택에 작업실을 둔 궁정 화가입니다.",
+    heard: "그의 그림 한 점이 걸린 집은 시즌 내내 화제가 된다고 합니다."
+  },
+  adrian: {
+    name: "아드리안 아스텔", role: "아스텔 제국의 황태자", piece: "k", img: "",
+    age: "26세", birth: "1427.03.16", body: "186cm, 76kg",
+    look: "백금빛 머리에 푸른 눈을 가졌고, 늘 흠잡을 데 없는 미소를 짓고 있습니다.",
+    manner: "여유롭고 사람을 편하게 만드는 데 능합니다. 연회장의 분위기는 그가 들어서는 순간 바뀝니다.",
+    speech: "여유로운 존댓말을 씁니다. 엘리아나는 ‘공작 부인’이라 부릅니다.",
+    haunt: "황궁과 궁정의 연회장.",
+    tie: "제국의 황태자로, 공작 부부와는 연회 자리에서 마주칩니다.",
+    heard: "그가 웃으면 사교계 전체가 따라 웃는다고 합니다."
+  },
+  seraphin: {
+    name: "세라핀 노르드", role: "이단심문관", piece: "b", img: "",
+    age: "31세", birth: "1421.12.19", body: "170cm, 57kg",
+    look: "은발 단발에 연한 청색 눈을 가졌고, 왼쪽 뺨에 화상 흉터가 있습니다. 회색 수도복 위에 검은 외투를 걸치고, 목에는 성인(聖印) 목걸이를 달았습니다.",
+    manner: "감정을 거의 드러내지 않고 질문은 곧고 짧습니다.",
+    speech: "짧고 건조한 존댓말을 씁니다. 엘리아나는 ‘부인’, 루시엔은 ‘발렌티스 공’이라 부릅니다.",
+    haunt: "새벽종 대신전의 회색법정.",
+    tie: "신전 산하 이단심문소의 심문관입니다.",
+    heard: "그녀가 찾아온 집은 이튿날 소문이 달라진다고 합니다."
+  }
+};
+
+const IMG_DIRS = ["img/", ""];
+const IMG_EXTS = ["png", "webp", "jpg", "jpeg", "PNG", "JPG"];
+const FILES = {
+  lucien: ["루시엔_평온"], elliana: ["엘리아나_평온"], gregor: ["그레고르_평온"], nina: ["니나_평온"],
+  lenox: ["레녹스_평온"], madeline: ["마델린_평온"], isabel: ["이사벨_평온", "이사벨_초상화"],
+  arno: ["아르노_평온"], vivian: ["비비안_평온"], clarisse: ["클라리스_평온"],
+  teodor: ["테오_평온", "테오도르_평온"], adrian: ["아드리안_평온"], seraphin: ["세라핀_평온"]
+};
+const ORDER = GROUPS.flatMap(g => g.ids);
+const $ = id => document.getElementById(id);
+const symbol = (p) => `<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#${p.piece}-${p.wine ? "b" : "w"}"/></svg>`;
+const media = (p) => p.img ? `<img src="${p.img}" alt="${p.name}">` : symbol(p);
+
+// 인물 칸
+$("groups").innerHTML = GROUPS.map(g => `
+  <div class="group">
+    <h3>${g.title}</h3>
+    <p class="note">${g.note}</p>
+    <div class="board${g.pair ? " pair" : ""}">
+      ${g.ids.map(id => { const p = PEOPLE[id]; return `
+        <button class="tile${p.gone ? " gone" : ""}" type="button" data-id="${id}" aria-label="${p.name}, ${p.role}. 자세히 보기">
+          <span class="sq">${media(p)}</span>
+          <span class="lab"><span class="nm">${p.name}</span><span class="rl">${p.role}</span></span>
+        </button>`; }).join("")}
+    </div>
+  </div>`).join("");
+
+// 이미지 자동 탐색: 이름 × 폴더 × 확장자를 차례로 시도하고, 처음 뜨는 파일을 쓴다 (맥의 분해형 한글 이름도 시도)
+const probe = src => new Promise(res => { const i = new Image(); i.onload = () => res(src); i.onerror = () => res(null); i.src = src; });
+async function findImage(id) {
+  if (PEOPLE[id].img) return PEOPLE[id].img;
+  for (const base of FILES[id] || [])
+    for (const form of ["NFC", "NFD"])
+      for (const d of IMG_DIRS)
+        for (const e of IMG_EXTS) {
+          const src = await probe(encodeURI(d + base.normalize(form) + "." + e));
+          if (src) return src;
+        }
+  return null;
+}
+ORDER.forEach(async id => {
+  const src = await findImage(id);
+  if (!src) return;
+  PEOPLE[id].img = src;
+  const sq = document.querySelector(`.tile[data-id="${id}"] .sq`);
+  if (sq) sq.innerHTML = media(PEOPLE[id]);
+  if (dlg.open && cur === id) $("d-pic").innerHTML = media(PEOPLE[id]);
+});
+
+// 상세
+const dlg = $("sheet");
+let cur = null, opener = null;
+function show(id) {
+  const p = PEOPLE[id]; cur = id;
+  $("d-pic").innerHTML = media(p);
+  $("d-name").textContent = p.name;
+  $("d-role").textContent = p.role;
+  const facts = [["나이", p.age], ["생년월일", p.birth], ["키와 몸무게", p.body]].filter(f => f[1]);
+  $("d-facts").innerHTML = facts.map(f => `<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join("");
+  const rows = [["외모", p.look], ["겉으로 보이는 모습", p.manner], ["말투와 호칭", p.speech],
+                ["자주 머무는 곳", p.haunt], ["엘리아나와의 관계", p.tie]].filter(r => r[1]);
+  $("d-body").innerHTML = rows.map(r => `<h4>${r[0]}</h4><p>${r[1]}</p>`).join("") +
+    (p.heard ? `<h4>사교계에서 도는 말</h4><p class="heard">${p.heard}</p>` : "");
+  const i = ORDER.indexOf(id), n = ORDER.length;
+  $("d-prev").textContent = "이전 " + PEOPLE[ORDER[(i + n - 1) % n]].name.split(" ")[0];
+  $("d-next").textContent = "다음 " + PEOPLE[ORDER[(i + 1) % n]].name.split(" ")[0];
+  $("d-scroll").scrollTop = 0;
+}
+function open(id, from) { opener = from; show(id); if (!dlg.open) dlg.showModal(); }
+document.addEventListener("click", e => {
+  const t = e.target.closest(".tile"); if (t) open(t.dataset.id, t);
+  if (e.target === dlg) dlg.close();
+});
+$("d-close").onclick = () => dlg.close();
+$("d-prev").onclick = () => show(ORDER[(ORDER.indexOf(cur) + ORDER.length - 1) % ORDER.length]);
+$("d-next").onclick = () => show(ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length]);
+dlg.addEventListener("close", () => { const t = document.querySelector(`.tile[data-id="${cur}"]`); (t || opener)?.focus(); });
+dlg.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") $("d-prev").click();
+  if (e.key === "ArrowRight") $("d-next").click();
+});
+</script>
+</body>
+</html>
