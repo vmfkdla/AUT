@@ -97,6 +97,29 @@ a { color: inherit; }
 .world th { font-family: var(--head); font-weight: 500; width: 34%; color: var(--ink-soft); }
 .scroll-x { overflow-x: auto; }
 
+
+/* 원작 연표 */
+.world .tl-head { font-size: 19px; margin: 34px 0 16px; color: var(--ink); }
+.tl { list-style: none; margin: 0 0 8px 6px; padding: 0 0 0 20px; border-left: 2px solid var(--gold-deep); }
+.tl li { position: relative; padding: 0 0 24px 14px; }
+.tl li:last-child { padding-bottom: 6px; }
+.tl li::before {
+  content: ""; position: absolute; left: -32px; top: 7px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--parchment); border: 2px solid var(--gold-deep);
+}
+.tl.future li::before { background: var(--wine); border-color: var(--wine); }
+.tl .when { display: block; font-family: var(--head); font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+.tl .what { display: block; font-family: var(--head); font-weight: 700; font-size: 19px; color: var(--ink); margin: 1px 0 4px; line-height: 1.4; }
+.tl p { margin: 0; font-size: 16.5px; line-height: 1.8; }
+.now { margin: 6px 0 0; padding: 18px 20px 6px; background: var(--ink); color: var(--parchment); border: 2px solid var(--gold-deep); }
+.now b { display: block; font-family: var(--head); font-size: 19px; color: var(--gold); margin-bottom: 4px; }
+.now p { font-size: 16.5px; }
+
+/* 배너 */
+[hidden] { display: none !important; }
+.banner { background: var(--frame); border-bottom: 2px solid var(--gold-deep); }
+.banner img { display: block; width: 100%; height: clamp(180px, 42vw, 440px); object-fit: cover; object-position: center 60%; }
+
 /* 인물 */
 .cast { padding: 72px 20px 88px; }
 .cast h2 { font-size: clamp(34px, 8vw, 48px); color: var(--gold); margin-bottom: 18px; }
@@ -185,10 +208,11 @@ footer p { max-width: 34em; margin: 0 auto; }
 
 <header class="bar">
   <b>체크메이트</b>
-  <nav aria-label="바로가기"><a href="#world">세계관</a><a href="#cast">인물</a></nav>
+  <nav aria-label="바로가기"><a href="#world">세계관</a><a href="#novel">원작</a><a href="#cast">인물</a></nav>
 </header>
 
 <main>
+<div class="banner" id="banner" hidden><img alt="새벽빛 속의 노크턴 저택"></div>
 <section class="hero" aria-labelledby="top">
   <p class="when">1453년 5월 29일 화요일 아침<br>아스텔 제국, 수도 세레나</p>
   <h1 id="top">체크메이트</h1>
@@ -209,7 +233,7 @@ footer p { max-width: 34em; margin: 0 auto; }
 <article class="world" id="world">
   <div class="wrap">
     <h2>세계관</h2>
-    <p class="intro">이야기는 1453년 5월 29일 아침, 제국의 수도 세레나에서 시작됩니다. 봄 사교 시즌이 한창이고, 도시는 어젯밤 한 연회장에서 벌어진 일로 들끓고 있습니다. 이 페이지에는 당신이 눈을 뜨기 전부터 이 세계가 갖고 있던 것만 적었습니다.</p>
+    <p class="intro">이야기는 1453년 5월 29일 아침, 제국의 수도 세레나에서 시작됩니다. 봄 사교 시즌이 한창이고, 도시는 어젯밤 한 연회장에서 벌어진 일로 들끓고 있습니다. 이 페이지에는 당신이 눈을 뜨기 전부터 이 세계가 갖고 있던 것과, 당신이 읽은 원작에 나온 것만 적었습니다.</p>
 
     <section id="empire">
       <h3>아스텔 제국</h3>
@@ -277,8 +301,46 @@ footer p { max-width: 34em; margin: 0 auto; }
 
     <section id="novel">
       <h3>원작 소설 「겨울에 지는 꽃」</h3>
-      <p>당신이 읽던 소설입니다. 공작 부인 엘리아나의 시점으로 쓰인 비극적인 로맨스 판타지로, 독자들은 그 끝을 ‘역대급 배드엔딩’이라 불렀습니다. 소설 속의 엘리아나는 남편에게 이용당한 끝에 죽습니다.</p>
-      <p class="quote">당신은 그 결말을 알고 있습니다. 소설이 아직 쓰지 않은 것은, 지금부터의 선택입니다.</p>
+      <p>당신이 읽던 소설입니다. 공작 부인 엘리아나의 시점으로 쓰인 비극적인 로맨스 판타지로, 독자들은 그 끝을 ‘역대급 배드엔딩’이라 불렀습니다. 아래는 당신이 기억하고 있는 줄거리입니다. 소설이 끝내 설명하지 않은 것은 이 페이지에도 적혀 있지 않습니다.</p>
+
+      <h4 class="tl-head">당신이 눈을 뜨기 전</h4>
+      <ol class="tl past">
+        <li><span class="when">1년 반 전</span><span class="what">결혼</span>
+          <p>몰락 직전의 로첼 백작가를 살리려고 엘리아나가 발렌티스 공작에게 시집온다. 혼사를 받아들인 사람은 오빠 아르노다.</p></li>
+        <li><span class="when">결혼 직후</span><span class="what">단 한 사람</span>
+          <p>사교계는 몰락한 가문 출신의 신부를 비웃는다. 모두가 등을 돌린 자리에서 공작만이 그녀를 한 번도 탓하지 않았고, 엘리아나는 그에게 마음을 쏟기 시작한다.</p></li>
+        <li><span class="when">이후 1년</span><span class="what">눈치</span>
+          <p>공작은 다정하다가 차가워지기를 되풀이하고, 엘리아나는 그의 기색만 살피는 사람이 된다. 오빠와의 사이도 틀어져 연락이 끊긴다.</p></li>
+        <li><span class="when">5월 28일 밤</span><span class="what">와인 사건</span>
+          <p>연회장에서 엘리아나가 몽크레르 영애 클라리스에게 와인을 끼얹는다. 이날부터 그녀는 ‘공작가의 미친 부인’으로 불린다. 공작은 이날도 그녀를 탓하지 않는다.</p></li>
+      </ol>
+
+      <div class="now">
+        <b>1453년 5월 29일 화요일 아침</b>
+        <p>당신이 이 몸에서 눈을 뜬 순간입니다. 여기서부터 소설은 이렇게 흘러갑니다.</p>
+      </div>
+
+      <h4 class="tl-head">원작대로라면 앞으로</h4>
+      <ol class="tl future">
+        <li><span class="when">6월</span><span class="what">하지 무도회</span>
+          <p>엘리아나가 또 한 번 소동을 일으킨다. 평판은 더 깊이 가라앉는다.</p></li>
+        <li><span class="when">7월</span><span class="what">레녹스의 귀경</span>
+          <p>공작의 이복동생 레녹스가 수도로 돌아온다.</p></li>
+        <li><span class="when">시즌 내내, 매달</span><span class="what">북부에서 온 편지</span>
+          <p>북부 성의 관리인 마델린이 편지와 선물을 보내지만, 엘리아나는 한 번도 답장하지 않는다.</p></li>
+        <li><span class="when">10월</span><span class="what">오빠의 편지</span>
+          <p>엘리아나가 오빠 아르노가 보낸 편지를 불태운다.</p></li>
+        <li><span class="when">가을의 끝</span><span class="what">북부로</span>
+          <p>사교 시즌이 막을 내리고, 공작 부부는 눈 덮인 북부 영지로 돌아간다.</p></li>
+        <li><span class="when">11월 28일 밤</span><span class="what">생일 전날</span>
+          <p>북부 성 지하의 제단에서 금기의 의식이 치러지고, 엘리아나는 그 제물이 되어 죽는다.</p></li>
+        <li><span class="when">마지막 장</span><span class="what">드러난 얼굴</span>
+          <p>공작의 다정함이 처음부터 끝까지 계산된 것이었음이 드러난다. 그가 왜 이 의식을 치렀는지는 소설 속에서 끝내 설명되지 않는다.</p></li>
+        <li><span class="when">후일담</span><span class="what">늦은 진실</span>
+          <p>동생이 죽은 뒤에야 아르노는 진실에 다가가지만, 이미 늦었다.</p></li>
+      </ol>
+
+      <p class="quote">당신은 이 결말을 알고 있습니다. 소설이 아직 쓰지 않은 것은, 지금부터의 선택입니다.</p>
     </section>
   </div>
 </article>
@@ -481,9 +543,8 @@ $("groups").innerHTML = GROUPS.map(g => `
 
 // 이미지 자동 탐색: 이름 × 폴더 × 확장자를 차례로 시도하고, 처음 뜨는 파일을 쓴다 (맥의 분해형 한글 이름도 시도)
 const probe = src => new Promise(res => { const i = new Image(); i.onload = () => res(src); i.onerror = () => res(null); i.src = src; });
-async function findImage(id) {
-  if (PEOPLE[id].img) return PEOPLE[id].img;
-  for (const base of FILES[id] || [])
+async function findFile(bases) {
+  for (const base of bases)
     for (const form of ["NFC", "NFD"])
       for (const d of IMG_DIRS)
         for (const e of IMG_EXTS) {
@@ -492,6 +553,11 @@ async function findImage(id) {
         }
   return null;
 }
+async function findImage(id) {
+  if (PEOPLE[id].img) return PEOPLE[id].img;
+  return findFile(FILES[id] || []);
+}
+findFile(["배너"]).then(src => { if (src) { $("banner").querySelector("img").src = src; $("banner").hidden = false; } });
 ORDER.forEach(async id => {
   const src = await findImage(id);
   if (!src) return;
